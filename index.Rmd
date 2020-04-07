@@ -1,0 +1,104 @@
+#### Alcance territorial de Fuerza Popular a nivel subnacional
+
+
+##### Listas presentadas a nivel subacional
+
+El análisis presentado a continuación, muestra el número de listas presentadas por Fuerza Popular en todas las regiones del país, en los tres niveles de gobierno. Así, en todas las regiones, a nivel regional y local, existen un total 6210 autoridades elegibles, frente a las cuales FP presentó a 2073 miembros de la organización. Dicho dato equivale al 33.38% del total.
+
+Analizados a nivel territorial, se realizaron tres cortes a los datos, formando cuatro grupos según la distribución de la tasa de miembros de la organización que se presentaron candidaturas, con respecto al total de autoridades elegibles en cada región. Los rangos de cada grupo son los siguientes:
+
+- Grupo 1: Entre 0% y 20%
+- Grupo 2: Entre 21% y 31%
+- Grupo 3: Entre 32% y 60%
+- Grupo 4: Más de 60%
+
+
+```{r include=FALSE}
+folder='departamentos'
+fileName='DEPARTAMENTO.shp' # nivel 2 son provincias
+fileToRead=file.path(folder,fileName)
+
+library(rgdal)
+PeruDepa <- rgdal::readOGR(fileToRead,stringsAsFactors=FALSE)
+```
+
+```{r include=FALSE}
+data = read.csv("data.csv")
+```
+
+```{r include=FALSE}
+dataMapa = data[,c(1,7)]
+```
+
+```{r include=FALSE}
+etiquetas = c(1,2,3,4)
+dataMapa$TasaListasOrd = cut(dataMapa$TasaListasFP,
+                              breaks = 4,
+                              labels = etiquetas,
+                              ordered_result = T)
+```
+
+```{r include=FALSE}
+min(dataMapa[dataMapa$TasaListasOrd == 1,]$TasaListasFP)
+max(dataMapa[dataMapa$TasaListasOrd == 1,]$TasaListasFP)
+
+min(dataMapa[dataMapa$TasaListasOrd == 2,]$TasaListasFP)
+max(dataMapa[dataMapa$TasaListasOrd == 2,]$TasaListasFP)
+
+min(dataMapa[dataMapa$TasaListasOrd == 3,]$TasaListasFP)
+max(dataMapa[dataMapa$TasaListasOrd == 3,]$TasaListasFP)
+
+min(dataMapa[dataMapa$TasaListasOrd == 4,]$TasaListasFP)
+max(dataMapa[dataMapa$TasaListasOrd == 4,]$TasaListasFP)
+```
+
+```{r include=FALSE}
+library(tidyverse)
+datat = dataMapa %>% group_by(TasaListasOrd) %>% summarise(count = n ())
+```
+
+```{r include=FALSE}
+colnames(datat) = c("Grupo","Regiones")
+```
+
+De tal forma, el primer conglomerado contiene a 10 regiones del país, el segundo a 4, el tercero a 6, y el cuarto a 4 regiones del país. Todo ello se puede observar en el gráfico a continuación:
+
+```{r fig.height = 3.5, echo=FALSE,warning=FALSE}
+library(ggplot2)
+ggplot(data=datat, aes(x=Grupo, y=Regiones)) +
+  geom_bar(stat="identity", fill="darkgrey") + labs(title="Número de regiones por grupo", y="Número de regiones", x="Grupo") +theme(panel.background=element_rect(fill = "white", colour = "black")) + theme(plot.title = element_text(hjust = 0.5))+
+  geom_text(aes(label=Regiones), vjust=1.6, color="white", size=4) + scale_y_continuous(breaks=seq(0,10,2))
+```
+
+###### Mapa de calor:
+
+El mapa presentado a continuación, muestra dicho análisis a nivel georreferenciado:
+
+```{r include=FALSE}
+PeruDepa=merge(PeruDepa,dataMapa,by.x="DEPARTAMEN", by.y = "DEPARTAMENTO",all.x=TRUE)
+```
+
+```{r echo=FALSE,message=FALSE,warning=FALSE,eval=TRUE,fig.show='hold',fig.width=8,fig.height=8.5}
+paleta=c("gray73","gray54","gray34","gray17","gray4") #colores
+plot(PeruDepa,col='white',border=NA) 
+plot(PeruDepa,
+     col=paleta[PeruDepa$TasaListasOrd],
+     border='NA',add=T)
+
+legend("bottomleft",
+       title='Porcentaje de autoridades elegibles de FP, \n en los tres niveles de gobierno',
+       legend=c(paste0("Más de 60%"),
+                paste0("Entre 32% y 60%"),
+                paste0("Entre 21% y 31%"),
+                paste0("Entre 0% y 20%")
+                ),
+           fill=c("gray4","gray17","gray34","gray54","gray73"),cex=0.8,bty = "n")
+```
+
+
+
+
+
+
+
+
