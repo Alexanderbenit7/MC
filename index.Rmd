@@ -84,7 +84,7 @@ paleta=c("gray73","gray54","gray34","gray17","gray4") #colores
 plot(PeruDepa,col='white',border=NA) 
 plot(PeruDepa,
      col=paleta[PeruDepa$TasaListasOrd],
-     border='NA',add=T)
+     border='Black',add=T)
 
 legend("bottomleft",
        title='Porcentaje de candidaturas presentadas por\nFuerza Popular en elecciones subnacionales',
@@ -174,7 +174,7 @@ paleta=c("gray73","gray54","gray34","gray17","gray4") #colores
 plot(PeruDepa,col='white',border=NA) 
 plot(PeruDepa,
      col=paleta[PeruDepa$Ord2010],
-     border="Gray",add=T)
+     border="Black",add=T)
 
 legend("bottomleft",
        title='2010',
@@ -194,7 +194,7 @@ paleta=c("gray73","gray54","gray34","gray17","gray4") #colores
 plot(PeruDepa,col='white',border=NA) 
 plot(PeruDepa,
      col=paleta[PeruDepa$Ord2014],
-     border="Gray",add=T)
+     border="Black",add=T)
 
 legend("bottomleft",
        title='2014',
@@ -215,7 +215,7 @@ paleta=c("gray73","gray54","gray34","gray17","gray4") #colores
 plot(PeruDepa,col='white',border=NA) 
 plot(PeruDepa,
      col=paleta[PeruDepa$Ord2018],
-     border='Gray',add=T)
+     border='Black',add=T)
 
 legend("bottomleft",
        title='2018',
@@ -268,7 +268,7 @@ paleta=c("gray73","gray54","gray34","gray17","gray4") #colores
 plot(PeruDepa,col='white',border=NA) 
 plot(PeruDepa,
      col=paleta[PeruDepa$Ord2010],
-     border="Gray",add=T)
+     border="Black",add=T)
 
 legend("bottomleft",
        title='2010',
@@ -288,7 +288,7 @@ paleta=c("gray73","gray54","gray34","gray17","gray4") #colores
 plot(PeruDepa,col='white',border=NA) 
 plot(PeruDepa,
      col=paleta[PeruDepa$Ord2014],
-     border="Gray",add=T)
+     border="Black",add=T)
 
 legend("bottomleft",
        title='2014',
@@ -309,7 +309,7 @@ paleta=c("gray73","gray54","gray34","gray17","gray4") #colores
 plot(PeruDepa,col='white',border=NA) 
 plot(PeruDepa,
      col=paleta[PeruDepa$Ord2018],
-     border='Gray',add=T)
+     border='Black',add=T)
 
 legend("bottomleft",
        title='2018',
